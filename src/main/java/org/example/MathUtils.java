@@ -3,7 +3,8 @@ package org.example;
 import java.nio.file.Path;
 
 public class MathUtils {
-  public static int max(int a, int b) {
+  public static int max(int a, int b)
+  {
     if (a >= b) {
       return a;
     }
