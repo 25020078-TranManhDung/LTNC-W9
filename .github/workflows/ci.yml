@@ -44,3 +44,4 @@ jobs:
         with:
           name: Jacoco-Report-${{ matrix.os }}
           path: target/site/jacoco/
+          # Test toc do cache lan 3
