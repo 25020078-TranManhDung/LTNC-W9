@@ -18,7 +18,7 @@ public class MathUtilsTest {
   @Test
   @DisplayName("EP: a lon hon b")
   public void testMax_AGreaterThanB() {
-    assertEquals(100, MathUtils.max(5, 3));
+    assertEquals(5, MathUtils.max(5, 3));
     assertEquals(100, MathUtils.max(100, -50));
   }
 
