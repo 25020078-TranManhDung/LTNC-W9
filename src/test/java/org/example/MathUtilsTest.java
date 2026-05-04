@@ -1,47 +1,53 @@
 package org.example;
 
-import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.nio.file.Path;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-public class MathUtilsTest {
+/**
+ * Lớp kiểm thử cho MathUtils.
+ */
+class MathUtilsTest {
 
   @BeforeAll
-  public static void setUpAll() {
+  static void setUpAll() {
     System.out.println("=== Bat dau chay org.example.MathUtilsTest ===");
   }
 
   @AfterAll
-  public static void tearDownAll() {
+  static void tearDownAll() {
     System.out.println("=== Ket thuc ===");
   }
 
   @Test
   @DisplayName("EP: a lon hon b")
-  public void testMax_AGreaterThanB() {
+  void testMaxFirstArgumentGreater() {
     assertEquals(5, MathUtils.max(5, 3));
     assertEquals(100, MathUtils.max(100, -50));
   }
 
   @Test
   @DisplayName("EP: a bang b")
-  public void testMax_AEqualsB() {
+  void testMaxArgumentsEqual() {
     assertEquals(4, MathUtils.max(4, 4));
     assertEquals(-10, MathUtils.max(-10, -10));
   }
 
   @Test
   @DisplayName("EP: a nho hon b")
-  public void testMax_ALessThanB() {
+  void testMaxFirstArgumentLess() {
     assertEquals(7, MathUtils.max(2, 7));
     assertEquals(0, MathUtils.max(-5, 0));
   }
 
   @Test
   @DisplayName("BVA: Kiem tra cac gia tri bien cua kieu int")
-  public void testMax_BoundaryValues() {
+  void testMaxBoundaryValues() {
     assertEquals(Integer.MAX_VALUE, MathUtils.max(Integer.MAX_VALUE, 0));
     assertEquals(Integer.MAX_VALUE, MathUtils.max(0, Integer.MAX_VALUE));
     assertEquals(10, MathUtils.max(Integer.MIN_VALUE, 10));
@@ -50,31 +56,34 @@ public class MathUtilsTest {
 
   @Test
   @DisplayName("EP: b > 0 (So chia la so duong)")
-  public void testDivide_PositiveDivider() {
+  void testDividePositiveDivider() {
     assertEquals(5, MathUtils.divide(10, 2));
     assertEquals(0, MathUtils.divide(0, 5));
   }
 
   @Test
   @DisplayName("EP: b < 0 (So chia la so am)")
-  public void testDivide_NegativeDivider() {
+  void testDivideNegativeDivider() {
     assertEquals(-5, MathUtils.divide(10, -2));
     assertEquals(3, MathUtils.divide(-9, -3));
   }
 
   @Test
   @DisplayName("EP: b = 0 (Bat ngoai le chia cho 0)")
-  public void testDivide_ZeroDivider() {
-    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-      MathUtils.divide(10, 0);
-    });
+  void testDivideZeroDivider() {
+    Exception exception =
+            assertThrows(
+                    IllegalArgumentException.class,
+                    () -> {
+                      MathUtils.divide(10, 0);
+                    });
 
     assertEquals("Divider must not be zero", exception.getMessage());
   }
 
   @Test
   @DisplayName("BVA: Kiem tra cac gia tri bien cua phep chia (divide)")
-  public void testDivide_BoundaryValues() {
+  void testDivideBoundaryValues() {
     assertEquals(10, MathUtils.divide(10, 1));
     assertEquals(-10, MathUtils.divide(10, -1));
 
@@ -89,16 +98,13 @@ public class MathUtilsTest {
     assertEquals(Integer.MIN_VALUE, MathUtils.divide(Integer.MIN_VALUE, -1));
   }
 
-    @Test
-    void testFilePath() {
-        String folder = "data";
-        String fileName = "report.txt";
+  @Test
+  void testFilePath() {
+    String folder = "data";
+    String fileName = "report.txt";
 
-        // Path.of sẽ tự hiểu:
-        // - Trên Windows là "data\report.txt"
-        // - Trên Linux là "data/report.txt"
-        String expected = Path.of(folder, fileName).toString();
+    String expected = Path.of(folder, fileName).toString();
 
-        assertEquals(expected, MathUtils.getFilePath(folder, fileName));
-    }
+    assertEquals(expected, MathUtils.getFilePath(folder, fileName));
+  }
 }
