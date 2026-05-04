@@ -1,6 +1,9 @@
 package org.example;
 
 import org.junit.jupiter.api.*;
+
+import java.nio.file.Path;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MathUtilsTest {
@@ -85,4 +88,17 @@ public class MathUtilsTest {
 
     assertEquals(Integer.MIN_VALUE, MathUtils.divide(Integer.MIN_VALUE, -1));
   }
+
+    @Test
+    void testFilePath() {
+        String folder = "data";
+        String fileName = "report.txt";
+
+        // Path.of sẽ tự hiểu:
+        // - Trên Windows là "data\report.txt"
+        // - Trên Linux là "data/report.txt"
+        String expected = Path.of(folder, fileName).toString();
+
+        assertEquals(expected, MathUtils.getFilePath(folder, fileName));
+    }
 }
